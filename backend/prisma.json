@@ -1,0 +1,4 @@
+{
+  "schema": "./prisma/schema.prisma",
+  "datasourceUrl": "postgresql://postgres:postgres@localhost:5432/kno?schema=public"
+}

@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  name          String?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  // Relations
+  workspaces    WorkspaceMember[]
+  notes         Note[]
+  auditLogs     AuditLog[]
+  noteShares    NoteShare[]
+  sentMessages  ChatMessage[] @relation("SentMessages")
+  receivedMessages ChatMessage[] @relation("ReceivedMessages")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+model Workspace {
+  id            String    @id @default(uuid())
+  name          String
+  slug          String    @unique
+  description   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  // Relations
+  members       WorkspaceMember[]
+  notes         Note[]
+  auditLogs     AuditLog[]
+}
+
+model WorkspaceMember {
+  id            String    @id @default(uuid())
+  userId        String
+  workspaceId   String
+  role          WorkspaceRole @default(MEMBER)
+  createdAt     DateTime  @default(now())
+  // Relations
+  user          User      @relation(fields: [userId], references: [id])
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@unique([userId, workspaceId])
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+model Note {
+  id            String    @id @default(uuid())
+  title         String
+  content       String    @db.Text
+  workspaceId   String
+  authorId      String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  // AI fields
+  summary       String?   @db.Text
+  tags          String[]  @default([])
+  embedding     String?   @db.Text
+  // Relations
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  author        User      @relation(fields: [authorId], references: [id])
+  shares        NoteShare[]
+  versions      NoteVersion[]
+}
+
+model NoteVersion {
+  id            String    @id @default(uuid())
+  noteId        String
+  content       String    @db.Text
+  title         String
+  authorId      String
+  createdAt     DateTime  @default(now())
+  // Relations
+  note          Note      @relation(fields: [noteId], references: [id])
+}
+
+model NoteShare {
+  id            String    @id @default(uuid())
+  noteId        String
+  userId        String
+  permission    SharePermission
+  createdAt     DateTime  @default(now())
+  // Relations
+  note          Note      @relation(fields: [noteId], references: [id])
+  user          User      @relation(fields: [userId], references: [id])
+
+  @@unique([noteId, userId])
+}
+
+enum SharePermission {
+  READ
+  COMMENT
+  WRITE
+}
+
+model AuditLog {
+  id            String    @id @default(uuid())
+  workspaceId   String?
+  userId        String
+  action        String
+  resourceType  String
+  resourceId    String?
+  details       Json?
+  createdAt     DateTime  @default(now())
+  // Relations
+  workspace     Workspace? @relation(fields: [workspaceId], references: [id])
+  user          User       @relation(fields: [userId], references: [id])
+}
+
+model ChatMessage {
+  id            String    @id @default(uuid())
+  fromUserId    String
+  toUserId      String
+  content       String    @db.Text
+  read          Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  // Relations
+  fromUser      User      @relation("SentMessages", fields: [fromUserId], references: [id])
+  toUser        User      @relation("ReceivedMessages", fields: [toUserId], references: [id])
+}
