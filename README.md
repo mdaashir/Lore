@@ -1,9 +1,9 @@
-# Kno
+# Lore
 
 > AI-powered note-taking platform. Organize, search, and summarize your knowledge.
 
-[![CI](https://github.com/YOUR_ORG/kno/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_ORG/kno/actions/workflows/ci.yml)
-[![Security](https://github.com/YOUR_ORG/kno/actions/workflows/security.yml/badge.svg)](https://github.com/YOUR_ORG/kno/actions/workflows/security.yml)
+[![CI](https://github.com/YOUR_ORG/lore/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_ORG/lore/actions/workflows/ci.yml)
+[![Security](https://github.com/YOUR_ORG/lore/actions/workflows/security.yml/badge.svg)](https://github.com/YOUR_ORG/lore/actions/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
 ## Features
@@ -57,7 +57,7 @@ docker compose up -d --build
 ## Project Structure
 
 ```
-kno/
+lore/
 ├── backend/                    # Express API
 │   ├── src/
 │   │   ├── config/             # Env, Prisma client

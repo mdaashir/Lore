@@ -1,11 +1,11 @@
 services:
   db:
     image: postgres:16-alpine
-    container_name: kno-db
+    container_name: lore-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: kno
+      POSTGRES_DB: lore
     ports:
       - "5432:5432"
     volumes:
@@ -21,11 +21,11 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: kno-api
+    container_name: lore-api
     ports:
       - "4000:4000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/kno?schema=public
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/lore?schema=public
       JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-production}
       JWT_EXPIRES_IN: 7d
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
@@ -39,7 +39,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: kno-web
+    container_name: lore-web
     ports:
       - "3000:80"
     environment:

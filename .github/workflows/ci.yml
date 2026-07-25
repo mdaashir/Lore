@@ -52,7 +52,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: kno_test
+          POSTGRES_DB: lore_test
         ports:
           - 5432:5432
         options: >-
@@ -73,13 +73,13 @@ jobs:
       - run: npm ci
       - run: npx prisma generate
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/kno_test?schema=public
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
       - run: npx prisma db push
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/kno_test?schema=public
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
       - run: npm test
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/kno_test?schema=public
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
           JWT_SECRET: test-secret
           JWT_EXPIRES_IN: 1d
           PORT: 4001

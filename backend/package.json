@@ -1,7 +1,7 @@
 {
-  "name": "kno-api",
+  "name": "lore-api",
   "version": "0.1.0",
-  "description": "Kno API — AI-powered note-taking platform backend",
+  "description": "Lore API — AI-powered note-taking platform backend",
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn src/server.ts",
@@ -17,7 +17,7 @@
     "format": "prettier --check src/",
     "format:fix": "prettier --write src/"
   },
-  "keywords": ["kno", "notes", "ai", "knowledge"],
+  "keywords": ["lore", "notes", "ai", "knowledge"],
   "author": "",
   "license": "MIT",
   "type": "commonjs",

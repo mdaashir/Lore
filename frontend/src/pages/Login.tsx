@@ -43,7 +43,7 @@ export function Login() {
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
             </div>
-            <span className="text-xl font-bold">Kno</span>
+            <span className="text-xl font-bold">Lore</span>
           </div>
           <h1 className="text-4xl font-bold leading-tight mb-4">
             Your knowledge,<br />amplified by AI
@@ -78,7 +78,7 @@ export function Login() {
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-gray-900">Kno</span>
+            <span className="text-lg font-bold text-gray-900">Lore</span>
           </div>
 
           <h2 className="text-2xl font-bold text-gray-900 mb-1">Welcome back</h2>
