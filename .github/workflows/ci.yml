@@ -102,7 +102,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
       - run: npm run build
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: backend-dist
           path: backend/dist/
@@ -121,7 +121,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: frontend-dist
           path: frontend/dist/
