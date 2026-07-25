@@ -12,7 +12,7 @@ concurrency:
 
 env:
   NODE_VERSION: '24'
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   lint-backend:
@@ -132,10 +132,13 @@ jobs:
     needs: [lint-backend, lint-frontend, test-backend, build-backend, build-frontend]
     runs-on: ubuntu-latest
     env:
-      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v5
-      - uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -156,9 +159,6 @@ jobs:
           context: backend
           push: true
           tags: ${{ steps.meta-api.outputs.tags }}
-          labels: ${{ steps.meta-api.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       - name: Docker metadata (frontend)
         id: meta-web
         uses: docker/metadata-action@v5
@@ -173,6 +173,3 @@ jobs:
           context: frontend
           push: true
           tags: ${{ steps.meta-web.outputs.tags }}
-          labels: ${{ steps.meta-web.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
