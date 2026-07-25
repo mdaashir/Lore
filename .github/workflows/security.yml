@@ -17,7 +17,7 @@ jobs:
       actions: read
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: github/codeql-action/init@v3
         with:
           languages: javascript-typescript
@@ -34,10 +34,10 @@ jobs:
       matrix:
         dir: [backend, frontend]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
       - run: npm audit --audit-level=high
         working-directory: ${{ matrix.dir }}
         continue-on-error: true
