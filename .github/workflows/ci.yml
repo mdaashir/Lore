@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
 
 jobs:
   lint-backend:
@@ -27,6 +27,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       - run: npm ci
+      - run: npx prisma generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
       - run: npm run lint
 
   lint-frontend:
@@ -74,9 +77,7 @@ jobs:
       - run: npx prisma generate
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
-      - run: npx prisma db push
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
+      - run: npx prisma db push --url postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
       - run: npm test
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
@@ -98,6 +99,8 @@ jobs:
           cache-dependency-path: backend/package-lock.json
       - run: npm ci
       - run: npx prisma generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lore_test?schema=public
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:

@@ -19,6 +19,7 @@ export function NoteList() {
       fetchWorkspace();
       fetchNotes();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [workspaceId]);
 
   async function fetchWorkspace() {

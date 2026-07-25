@@ -32,6 +32,7 @@ export function NoteEditor() {
     if (!isNew && noteId) {
       fetchNote();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId]);
 
   async function fetchNote() {
