@@ -12,6 +12,7 @@ concurrency:
 
 env:
   NODE_VERSION: '24'
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   lint-backend:
@@ -130,6 +131,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: [lint-backend, lint-frontend, test-backend, build-backend, build-frontend]
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
       - uses: actions/checkout@v5
       - uses: docker/setup-buildx-action@v3
@@ -139,19 +142,37 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Docker metadata (backend)
+        id: meta-api
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/lore/api
+          tags: |
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
       - name: Build and push backend
         uses: docker/build-push-action@v5
         with:
           context: backend
           push: true
-          tags: ghcr.io/${{ github.repository }}/api:${{ github.sha }},ghcr.io/${{ github.repository }}/api:latest
+          tags: ${{ steps.meta-api.outputs.tags }}
+          labels: ${{ steps.meta-api.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Docker metadata (frontend)
+        id: meta-web
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/lore/web
+          tags: |
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
       - name: Build and push frontend
         uses: docker/build-push-action@v5
         with:
           context: frontend
           push: true
-          tags: ghcr.io/${{ github.repository }}/web:${{ github.sha }},ghcr.io/${{ github.repository }}/web:latest
+          tags: ${{ steps.meta-web.outputs.tags }}
+          labels: ${{ steps.meta-web.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
