@@ -2,8 +2,8 @@
 
 > AI-powered note-taking platform. Organize, search, and summarize your knowledge.
 
-[![CI](https://github.com/YOUR_ORG/lore/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_ORG/lore/actions/workflows/ci.yml)
-[![Security](https://github.com/YOUR_ORG/lore/actions/workflows/security.yml/badge.svg)](https://github.com/YOUR_ORG/lore/actions/workflows/security.yml)
+[![CI](https://github.com/mdaashir/lore/actions/workflows/ci.yml/badge.svg)](https://github.com/mdaashir/lore/actions/workflows/ci.yml)
+[![Security](https://github.com/mdaashir/lore/actions/workflows/security.yml/badge.svg)](https://github.com/mdaashir/lore/actions/workflows/security.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 
 ## Features
