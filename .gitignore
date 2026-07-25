@@ -5,8 +5,8 @@
 *.local
 
 # ---- AI agent artifacts ----
-.commandcode/
 AGENTS.md
+CLAUDE.md
 
 # ---- Node ----
 node_modules/
