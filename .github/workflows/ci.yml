@@ -150,7 +150,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Docker metadata (backend)
         id: meta-api
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ghcr.io/${{ github.repository_owner }}/lore/api
           tags: |
@@ -164,7 +164,7 @@ jobs:
           tags: ${{ steps.meta-api.outputs.tags }}
       - name: Docker metadata (frontend)
         id: meta-web
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: ghcr.io/${{ github.repository_owner }}/lore/web
           tags: |
