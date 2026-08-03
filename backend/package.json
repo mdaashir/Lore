@@ -22,8 +22,8 @@
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {
-    "@prisma/adapter-pg": "^7.9.0",
-    "@prisma/client": "^7.9.0",
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
